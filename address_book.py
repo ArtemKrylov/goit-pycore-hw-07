@@ -154,9 +154,7 @@ class AddressBook(UserDict):
     def add_record_phone(self, name, phone: str) -> None:
         self.data[name].add_phone(phone)
 
-    def change_record(
-        self, name: str, phone: list[Phone], birthday: Birthday | None
-    ) -> None:
+    def change_record(self, name: str, phone: str, birthday: str | None) -> None:
         record = self.data[name]
         phone and Phone(phone)
         birthday and Birthday(birthday)
