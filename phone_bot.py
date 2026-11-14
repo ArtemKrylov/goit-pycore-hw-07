@@ -55,6 +55,7 @@ class PhoneBot:
         self.commands = {
             "hello": self._hello,
             "add": self._add_contact,
+            "add-phone-to-contact": self._add_contact_phone,
             "change": self._change_contact,
             "del": self._delete_contact,
             "phone": self._show_contact,
@@ -140,6 +141,21 @@ class PhoneBot:
         self.book.add_record(new_record)
 
         return f"Contact {Fore.BLUE}{name}{Fore.RESET} added."
+
+    @input_error
+    def _add_contact_phone(self, args) -> str | None:
+        name, phone = args
+
+        if name not in self.book.data:
+            raise ContactNotExist
+
+        record = self.book.find(name)
+        if record.find_phone(phone):
+            return "Phone already exists"
+
+        self.book.add_record_phone(name, phone)
+
+        return f"Phone {Fore.GREEN}{phone}{Fore.RESET} added to contact {Fore.BLUE}{name}{Fore.RESET}."
 
     @input_error
     def _change_contact(self, args) -> str | None:
