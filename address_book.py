@@ -157,12 +157,15 @@ class AddressBook(UserDict):
     def change_record(
         self, name: str, phone: list[Phone], birthday: Birthday | None
     ) -> None:
+        record = self.data[name]
+        phone and Phone(phone)
+        birthday and Birthday(birthday)
+
         if phone:
-            Phone(phone)
-            self.data[name].phones = []
-            self.data[name].add_phone(phone)
+            record.phones = []
+            record.add_phone(phone)
         if birthday:
-            self.data[name].birthday = Birthday(birthday)
+            record.birthday = Birthday(birthday)
 
     @error_handler
     def find(self, name: str) -> Record | None:
